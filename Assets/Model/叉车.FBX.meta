@@ -1,0 +1,253 @@
+fileFormatVersion: 2
+guid: 47e776f0fb7d745d4b0c74970da6b4bf
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: AM98_011_forklift_black_plastic
+    100002: AM98_011_forklift_black_shiny
+    100004: AM98_011_forklift_bolts_fl
+    100006: AM98_011_forklift_bolts_fr
+    100008: AM98_011_forklift_bolts_rl
+    100010: AM98_011_forklift_bolts_rr
+    100012: AM98_011_forklift_carpaint
+    100014: AM98_011_forklift_carpaint_2
+    100016: AM98_011_forklift_carpaint_3
+    100018: AM98_011_forklift_carpaint_4
+    100020: AM98_011_forklift_carpaint_5
+    100022: AM98_011_forklift_carpaint_black
+    100024: AM98_011_forklift_chain
+    100026: AM98_011_forklift_chrome
+    100028: AM98_011_forklift_metal
+    100030: AM98_011_forklift_orange_lights
+    100032: AM98_011_forklift_radiator
+    100034: AM98_011_forklift_red_lights
+    100036: AM98_011_forklift_rim_fl
+    100038: AM98_011_forklift_rim_fr
+    100040: AM98_011_forklift_rim_rl
+    100042: AM98_011_forklift_rim_rr
+    100044: AM98_011_forklift_rire_fr
+    100046: AM98_011_forklift_rubber
+    100048: AM98_011_forklift_rust
+    100050: AM98_011_forklift_tire_fl
+    100052: AM98_011_forklift_tire_rl
+    100054: AM98_011_forklift_tire_rr
+    100056: AM98_011_forklift_white_light
+    100058: //RootNode
+    400000: AM98_011_forklift_black_plastic
+    400002: AM98_011_forklift_black_shiny
+    400004: AM98_011_forklift_bolts_fl
+    400006: AM98_011_forklift_bolts_fr
+    400008: AM98_011_forklift_bolts_rl
+    400010: AM98_011_forklift_bolts_rr
+    400012: AM98_011_forklift_carpaint
+    400014: AM98_011_forklift_carpaint_2
+    400016: AM98_011_forklift_carpaint_3
+    400018: AM98_011_forklift_carpaint_4
+    400020: AM98_011_forklift_carpaint_5
+    400022: AM98_011_forklift_carpaint_black
+    400024: AM98_011_forklift_chain
+    400026: AM98_011_forklift_chrome
+    400028: AM98_011_forklift_metal
+    400030: AM98_011_forklift_orange_lights
+    400032: AM98_011_forklift_radiator
+    400034: AM98_011_forklift_red_lights
+    400036: AM98_011_forklift_rim_fl
+    400038: AM98_011_forklift_rim_fr
+    400040: AM98_011_forklift_rim_rl
+    400042: AM98_011_forklift_rim_rr
+    400044: AM98_011_forklift_rire_fr
+    400046: AM98_011_forklift_rubber
+    400048: AM98_011_forklift_rust
+    400050: AM98_011_forklift_tire_fl
+    400052: AM98_011_forklift_tire_rl
+    400054: AM98_011_forklift_tire_rr
+    400056: AM98_011_forklift_white_light
+    400058: //RootNode
+    2100000: AM98_011_carpaint_2
+    2100002: AM98_011_silver_2_bump_2
+    2100004: AM98_011_red_light
+    2100006: AM98_011_orange_light
+    2100008: AM98_011_white_light
+    2100010: AM98_011_carpaint_3
+    2100012: AM98_011_rubber
+    2100014: AM98_011_carpaint
+    2100016: AM98_011_carpaint_black
+    2100018: AM98_011_black_plastic
+    2100020: AM98_011_15 - Default
+    2100022: AM98_011_16 - Default
+    2100024: AM98_011_black_shiny
+    2100026: AM98_011_tire_side
+    2100028: AM98_011_tire
+    2100030: AM98_011_07 - Default
+    2100032: AM98_011_08 - Default
+    2100034: AM98_011_chrome9
+    2100036: AM98_011_carpaint_5
+    2300000: AM98_011_forklift_black_plastic
+    2300002: AM98_011_forklift_black_shiny
+    2300004: AM98_011_forklift_bolts_fl
+    2300006: AM98_011_forklift_bolts_fr
+    2300008: AM98_011_forklift_bolts_rl
+    2300010: AM98_011_forklift_bolts_rr
+    2300012: AM98_011_forklift_carpaint
+    2300014: AM98_011_forklift_carpaint_2
+    2300016: AM98_011_forklift_carpaint_3
+    2300018: AM98_011_forklift_carpaint_4
+    2300020: AM98_011_forklift_carpaint_5
+    2300022: AM98_011_forklift_carpaint_black
+    2300024: AM98_011_forklift_chain
+    2300026: AM98_011_forklift_chrome
+    2300028: AM98_011_forklift_metal
+    2300030: AM98_011_forklift_orange_lights
+    2300032: AM98_011_forklift_radiator
+    2300034: AM98_011_forklift_red_lights
+    2300036: AM98_011_forklift_rim_fl
+    2300038: AM98_011_forklift_rim_fr
+    2300040: AM98_011_forklift_rim_rl
+    2300042: AM98_011_forklift_rim_rr
+    2300044: AM98_011_forklift_rire_fr
+    2300046: AM98_011_forklift_rubber
+    2300048: AM98_011_forklift_rust
+    2300050: AM98_011_forklift_tire_fl
+    2300052: AM98_011_forklift_tire_rl
+    2300054: AM98_011_forklift_tire_rr
+    2300056: AM98_011_forklift_white_light
+    3300000: AM98_011_forklift_black_plastic
+    3300002: AM98_011_forklift_black_shiny
+    3300004: AM98_011_forklift_bolts_fl
+    3300006: AM98_011_forklift_bolts_fr
+    3300008: AM98_011_forklift_bolts_rl
+    3300010: AM98_011_forklift_bolts_rr
+    3300012: AM98_011_forklift_carpaint
+    3300014: AM98_011_forklift_carpaint_2
+    3300016: AM98_011_forklift_carpaint_3
+    3300018: AM98_011_forklift_carpaint_4
+    3300020: AM98_011_forklift_carpaint_5
+    3300022: AM98_011_forklift_carpaint_black
+    3300024: AM98_011_forklift_chain
+    3300026: AM98_011_forklift_chrome
+    3300028: AM98_011_forklift_metal
+    3300030: AM98_011_forklift_orange_lights
+    3300032: AM98_011_forklift_radiator
+    3300034: AM98_011_forklift_red_lights
+    3300036: AM98_011_forklift_rim_fl
+    3300038: AM98_011_forklift_rim_fr
+    3300040: AM98_011_forklift_rim_rl
+    3300042: AM98_011_forklift_rim_rr
+    3300044: AM98_011_forklift_rire_fr
+    3300046: AM98_011_forklift_rubber
+    3300048: AM98_011_forklift_rust
+    3300050: AM98_011_forklift_tire_fl
+    3300052: AM98_011_forklift_tire_rl
+    3300054: AM98_011_forklift_tire_rr
+    3300056: AM98_011_forklift_white_light
+    4300000: AM98_011_forklift_carpaint_2
+    4300002: AM98_011_forklift_carpaint_4
+    4300004: AM98_011_forklift_red_lights
+    4300006: AM98_011_forklift_orange_lights
+    4300008: AM98_011_forklift_white_light
+    4300010: AM98_011_forklift_carpaint_3
+    4300012: AM98_011_forklift_rubber
+    4300014: AM98_011_forklift_carpaint
+    4300016: AM98_011_forklift_carpaint_black
+    4300018: AM98_011_forklift_rim_fl
+    4300020: AM98_011_forklift_rim_rl
+    4300022: AM98_011_forklift_black_plastic
+    4300024: AM98_011_forklift_metal
+    4300026: AM98_011_forklift_rust
+    4300028: AM98_011_forklift_black_shiny
+    4300030: AM98_011_forklift_tire_fl
+    4300032: AM98_011_forklift_tire_rl
+    4300034: AM98_011_forklift_rire_fr
+    4300036: AM98_011_forklift_tire_rr
+    4300038: AM98_011_forklift_chain
+    4300040: AM98_011_forklift_rim_fr
+    4300042: AM98_011_forklift_rim_rr
+    4300044: AM98_011_forklift_radiator
+    4300046: AM98_011_forklift_chrome
+    4300048: AM98_011_forklift_bolts_fl
+    4300050: AM98_011_forklift_bolts_fr
+    4300052: AM98_011_forklift_bolts_rr
+    4300054: AM98_011_forklift_bolts_rl
+    4300056: AM98_011_forklift_carpaint_5
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
