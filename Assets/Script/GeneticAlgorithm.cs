@@ -2,21 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Node{
-    public int a { set; get; }
-    public int b { set; get; }
-    public int c { set; get; }
-    public int d { set; get; }
-    public Node next { set; get; }
-
-    public Node(int aa, int bb, int cc, int dd){
-        this.a = aa;
-        this.b = bb;
-        this.c = cc;
-        this.d = dd;
-    }
-}
-
 public class GeneticAlgorithm : MonoBehaviour {
     public int population_size = 15 * 12 * 3;
     public double max_mutation_rate = 0.05;
@@ -25,6 +10,8 @@ public class GeneticAlgorithm : MonoBehaviour {
     public double min_crossover_rate = 0.5;
     public int[,,] position = new int[16,13,4];
     public double[] height = new double [4]{ 0,0.145, 0.679, 1.1436 };
+    public double V_of_shelf = ((0.6737639 - 0.1639082) * 3) * (0.362 * 2) * (1.677 * 5);
+    public double[] weight = new double [4]{0, 1, 2, 3 };
 
     //crossover rate
     public double Mutation_rate(double A, double f_derivation, double f_avg, double f_max){
@@ -200,6 +187,46 @@ public class GeneticAlgorithm : MonoBehaviour {
         double res = Mathf.Sqrt(Mathf.Pow((float)(a - centre_a), 2) + Mathf.Pow((float)(b - centre_b), 2) + Mathf.Pow((float)(c - centre_c), 2));
 
         return res;
+    }
+
+    //weight_3:Shelf stability
+    public double Core_of_shelf(int x, int y, int z){
+        double core_of_shelf = 0;
+
+        double w_sum = 0;
+
+        for (int i = 1; i < 16; i++){
+            for (int j = 1; j < 13;j++){
+                for (int k = 1; k < 4;k++){
+                    if(position[i,j,k]!=0){
+                        w_sum += weight[position[i, j, k]];
+                    }
+                }
+            }
+        }
+
+        core_of_shelf = w_sum / V_of_shelf;
+
+        return core_of_shelf;
+    }
+
+    //w_1 & w-2 & w_3 => Objective function
+    public double Objective(int a, int b, int c){
+        double w_1 = 0.6;
+        double w_2 = 0.2;
+        double w_3 = 0.2;
+
+        double res = 0;
+
+        //f = w_1 * f1 + w_2 * f2 + w_3 * f3
+
+        return res;
+    }
+
+    //Fitness value function 1
+    public double Fitness_value_1(){
+        
+        return 0;
     }
 
 	// Use this for initialization
