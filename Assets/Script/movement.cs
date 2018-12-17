@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System;
 
 public class movement : MonoBehaviour {
 
     public Transform TargetObject = null;
 
     private NavMeshAgent agent;
+
+
 
 	// Use this for initialization
 	void Start () {
@@ -20,6 +23,7 @@ public class movement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-       
+        DateTime NowTime = DateTime.Now.ToLocalTime();
+        Console.WriteLine(NowTime.ToString("yyyy-MM-dd HH:mm:ss"));
 	}  
 }
