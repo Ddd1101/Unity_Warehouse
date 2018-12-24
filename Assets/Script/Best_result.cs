@@ -29,4 +29,9 @@ public class Best_result
             population.Add(tmp);
         }
     }
+
+    public void clear()
+    {
+        population.Clear();
+    }
 }

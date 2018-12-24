@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GeneticAlgorithm : MonoBehaviour
+public class GeneticAlgorithm
 {
     public int population_size = 15 * 12 * 3;
     public double A;
@@ -14,7 +14,7 @@ public class GeneticAlgorithm : MonoBehaviour
     public double V_of_shelf = ((0.6737639 - 0.1639082) * 3) * (0.362 * 2) * (1.677 * 5) * 18;
     public double[] weight = new double[4] { 0, 1, 2, 3 };
     public double[] turnover = new double[4] { 0, 0.3, 0.5, 0.2 };
-    public Random Random;
+    public System.Random random;
     private List<Individual> population;
     public Queue<Individual> offspring_list;
     public double f_max;
@@ -29,7 +29,7 @@ public class GeneticAlgorithm : MonoBehaviour
 
     public GeneticAlgorithm(int type, int num)
     {
-        Random = new Random();
+        random = new System.Random();
         population = new List<Individual>();
         offspring_list = new Queue<Individual>();
         best_result = new Best_result();
@@ -47,15 +47,7 @@ public class GeneticAlgorithm : MonoBehaviour
         {
             half_num = num / 2;
         }
-    }
-
-    public void Print()
-    {
-        foreach (var item in population)
-        {
-            print(item.x + " " + item.y + " " + item.z + " " + item.value);
-        }
-        print("=================");
+        best_result.clear();
     }
 
     //Initialize population
@@ -66,20 +58,23 @@ public class GeneticAlgorithm : MonoBehaviour
         int ran_y = 0;
         int ran_z = 0;
         bool flag = true;
+        //Debug.Log("num = " + num);
         for (int h = 0; h < num; h++)
         {
+            flag = true;
             while (flag)
             {
-                ran_x = Random.Range(1, 16);
-                ran_y = Random.Range(1, 13);
-                ran_z = Random.Range(1, 4);
-                //ran_type = Random.Range(1, 4);
+                ran_x = random.Next(1, 16);
+                ran_y = random.Next(1, 13);
+                ran_z = random.Next(1, 4);
+                //ran_type = random.Next(1, 4);
+                //Debug.Log(ran_x + " " + ran_y + " " + ran_z);
                 if (Data.position[ran_x, ran_y, ran_z] == 0)
                 {
                     Data.position[ran_x, ran_y, ran_z] = type;
                     //print(ran_x + " " + ran_y + " " + ran_z);
                     population.Add(new Individual(ran_x, ran_y, ran_z, type));
-                    break;
+                    flag = false;
                 }
                 else
                 {
@@ -87,7 +82,7 @@ public class GeneticAlgorithm : MonoBehaviour
                 }
             }
         }
-        //print("=============");
+        Debug.Log("initial population  " + population.Count);
     }
 
     //crossover rate
@@ -104,7 +99,7 @@ public class GeneticAlgorithm : MonoBehaviour
             double exp_element2 = f_max - f_avg;
             double exp = A * (exp_element1 / exp_element2);
 
-            member = 1 + Mathf.Exp((float)exp);
+            member = 1 + System.Math.Exp((float)exp);
 
             return ((denominator / member) + min_crossover_rate);
         }
@@ -128,7 +123,7 @@ public class GeneticAlgorithm : MonoBehaviour
             double exp_element2 = f_max - f_avg;
             double exp = A * (exp_element1 / exp_element2);
 
-            member = 1 + Mathf.Exp((float)exp);
+            member = 1 + System.Math.Exp((float)exp);
 
             return (denominator / member + min_mutation_rate);
         }
@@ -277,7 +272,7 @@ public class GeneticAlgorithm : MonoBehaviour
         c = height[z];
 
 
-        double res = Mathf.Sqrt(Mathf.Pow((float)(a - centre_a), 2) + Mathf.Pow((float)(b - centre_b), 2) + Mathf.Pow((float)(c - centre_c), 2));
+        double res = System.Math.Sqrt(System.Math.Pow((float)(a - centre_a), 2) + System.Math.Pow((float)(b - centre_b), 2) + System.Math.Pow((float)(c - centre_c), 2));
 
         return res;
     }
@@ -314,8 +309,12 @@ public class GeneticAlgorithm : MonoBehaviour
     //Fitness value function 1
     public void Fitness()
     {
+        //Debug.Log("10");
+        //Debug.Log("population count " + population.Count);
+        //int i = 16;
         foreach (var individual in population)
         {
+            //Debug.Log(i);
             double fitness = 0;
             double w1_fitness = Distance(individual.x, individual.y, individual.z) / 64.4056;
             fitness += 0.6 * (1 - w1_fitness);
@@ -324,11 +323,9 @@ public class GeneticAlgorithm : MonoBehaviour
             double w3_fitness = Core_of_shelf(individual.x, individual.y, individual.z) / 3;
             fitness += 0.2 * (1 - w3_fitness);
             individual.value = fitness;
-            //print(fitness);
-            //print(individual.x + " " + individual.y + " " + individual.z);
+            //i++;
         }
-        //print("====================");
-        //print("====================");
+        //Debug.Log("11");
     }
 
     //calulate f_max & f_avg
@@ -346,8 +343,6 @@ public class GeneticAlgorithm : MonoBehaviour
             }
         }
         f_avg = f_sum / (population.Count);
-        print(f_max + " " + f_avg);
-        print("====================");
         if (best_result.f_avg < f_avg)
         {
             best_result.update(f_avg, population);
@@ -373,8 +368,8 @@ public class GeneticAlgorithm : MonoBehaviour
     //Stochastic Tournament
     public Individual Pick_parents()
     {
-        double num1 = Random.Range(0.0f, 1.0f);
-        double num2 = Random.Range(0.0f, 1.0f);
+        double num1 = random.NextDouble();
+        double num2 = random.NextDouble();
 
         Individual tmp1 = new Individual();
         Individual tmp2 = new Individual();
@@ -424,10 +419,10 @@ public class GeneticAlgorithm : MonoBehaviour
             p_m = Mutation_rate(parent1.value, f_avg, f_max);
             //print(p_c + " " + p_m);
 
-            num1 = Random.Range(0.0f, 1.0f);
-            num2 = Random.Range(0.0f, 1.0f);
+            num1 = random.NextDouble();
+            num2 = random.NextDouble();
             //decide which dimension to crossover
-            num3 = Random.Range(1, 4);
+            num3 = random.Next(1, 4);
 
             //crossover
             if (num1 < p_c)
@@ -459,22 +454,22 @@ public class GeneticAlgorithm : MonoBehaviour
             }
 
             //decide which dimension to mutation
-            num3 = Random.Range(1, 4);
+            num3 = random.Next(1, 4);
 
             //mutation
             if (num2 < p_m)
             {
                 if (num3 == 1)
                 {
-                    offspring.x = Random.Range(1, 16);
+                    offspring.x = random.Next(1, 16);
                 }
                 else if (num3 == 2)
                 {
-                    offspring.y = Random.Range(1, 13);
+                    offspring.y = random.Next(1, 13);
                 }
                 else
                 {
-                    offspring.z = Random.Range(1, 4);
+                    offspring.z = random.Next(1, 4);
                 }
                 //print(offspring.x + " " + offspring.y + " " + offspring.z);
             }
@@ -528,5 +523,6 @@ public class GeneticAlgorithm : MonoBehaviour
             Vector4 tmp = new Vector4(item.x, item.y, item.z, type);
             Data.position_put.Enqueue(tmp);
         }
+        //Debug.Log(Data.position_put.Count);
     }
 }
