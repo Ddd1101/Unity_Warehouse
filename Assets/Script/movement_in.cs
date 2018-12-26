@@ -19,6 +19,7 @@ public class movement_in : MonoBehaviour
     int tmp_z;
     int is_stop = 0;
     Vector3 last_position = new Vector3();
+    int itor = 0;
 
     // Use this for initialization
     void Start()
@@ -32,36 +33,49 @@ public class movement_in : MonoBehaviour
         origin.z = transform.position.z;
 
         last_position = origin;
+
+        tmp.x = -1;
     }
 
     // Update is called once per frame
     void Update()
     {
         //Debug.Log(transform.position.z + " " + origin.z);
-        Debug.Log("movement " + Data.position_put.Count);
-        if ((transform.position.z == origin.z) && (transform.position.x == origin.x) && (Data.position_put.Count > 0))
+        //Debug.Log("movement " + Data.position_put.Count);
+        //Debug.Log(agent.isStopped);
+        if ((tmp.x == -1) && (transform.position.z == origin.z) && (transform.position.x == origin.x) && (Data.position_put.Count > 0))
         {
             //Debug.Log("in");
             tmp = Data.position_put.Dequeue();
-            //Debug.Log("position : x = " + tmp.x + " y = " + tmp.y + " z = " + tmp.z);
+            Debug.Log("position : x = " + tmp.x + " y = " + tmp.y + " z = " + tmp.z);
             goods = new Vector3();
             if (tmp.y % 2 == 1)
             {
-                tmp.y /= 2;
-                goods.z = (float)(-3.187 + tmp.y * 3.0);
-                goods.x = (float)(-16.36 + (tmp.x / 5) * 10.4 + ((tmp.x % 5) - 1) * 1.677);
-                goods.y = (float)(0.1639082 + (tmp.z - 1) * (0.6737639 - 0.1639082));
+                Debug.Log("single" + (++itor));
+                tmp.x -= 1;
+                tmp.y = (int)(tmp.y / 2);
+                goods.z = (-3.649f + tmp.y * 3.0f);
+                goods.x = (-16.35f + ((int)((int)(tmp.x) / 5)) * 10.4f + ((int)((int)(tmp.x % 5))) * 1.677f);
+                goods.y = (0.1639082f + ((int)(tmp.z - 1)) * (0.6737639f - 0.1639082f));
                 destination.z = goods.z;
+                destination.z -= 1;
                 destination.x = goods.x;
                 destination.y = transform.position.y;
-            }else{
-                tmp.y /= 2;
-                goods.z = (float)(-3.187 + tmp.x * 3.0);
-                goods.x = (float)(-16.36 + (tmp.y / 5) * 10.4 + ((tmp.y % 5) - 1) * 1.677);
-                goods.y = (float)(0.1639082 + (tmp.z - 1) * (0.6737639 - 0.1639082));
+                Debug.Log("x = " + destination.x + " z = " + destination.z);
+            }
+            else
+            {
+                Debug.Log("multi" + (++itor));
+                tmp.x -= 1;
+                tmp.y = (int)(tmp.y / 2);
+                goods.z = (-3.187f + tmp.y * 3.0f);
+                goods.x = (-16.35f + ((int)((int)tmp.x) / 5) * 10.4f + ((int)((int)tmp.x % 5)) * 1.677f);
+                goods.y = (0.1639082f + ((int)(tmp.z - 1)) * (0.6737639f - 0.1639082f));
                 destination.z = goods.z;
+                destination.z += 1;
                 destination.x = goods.x;
                 destination.y = transform.position.y;
+                Debug.Log("x = " + destination.x + " z = " + destination.z);
             }
             agent.SetDestination(destination);
         }
@@ -69,12 +83,13 @@ public class movement_in : MonoBehaviour
         {
             is_stop += 1;
             //Debug.Log("is_stop =" + is_stop);
-            if (is_stop >= 5)
+            if (is_stop >= 7)
             {
                 origin.y = transform.position.y;
                 agent.SetDestination(origin);
                 is_stop = 0;
             }
+            tmp.x = -1;
         }
 
         last_position.x = transform.position.x;

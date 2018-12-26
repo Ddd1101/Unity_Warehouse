@@ -16,11 +16,12 @@ public class Time : MonoBehaviour
     ThreadStart child_thread;
     Thread goods_in_thread;
     bool lock_ = false;
+    int itor = 0;
 
     public void goods_in(int num, int type)
     {
-        Debug.Log("in thread" + num + " " + type);
-
+        //Debug.Log("in thread" + num + " " + type);
+        Debug.Log(itor++);
         ga = new GeneticAlgorithm(type, num);
         ga.Initialize_population();
         //Debug.Log("1");
