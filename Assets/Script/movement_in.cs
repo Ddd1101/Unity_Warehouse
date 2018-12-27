@@ -47,7 +47,7 @@ public class movement_in : MonoBehaviour
         {
             //Debug.Log("in");
             tmp = Data.position_put.Dequeue();
-            Debug.Log("position : x = " + tmp.x + " y = " + tmp.y + " z = " + tmp.z);
+            Debug.Log("position : x = " + tmp.x + " y = " + tmp.y + " z = " + tmp.z + " / " + Data.position_put.Count);
             goods = new Vector3();
             if (tmp.y % 2 == 1)
             {
@@ -58,7 +58,7 @@ public class movement_in : MonoBehaviour
                 goods.x = (-16.35f + ((int)((int)(tmp.x) / 5)) * 10.4f + ((int)((int)(tmp.x % 5))) * 1.677f);
                 goods.y = (0.1639082f + ((int)(tmp.z - 1)) * (0.6737639f - 0.1639082f));
                 destination.z = goods.z;
-                destination.z -= 1;
+                destination.z -= (float)(1.5);
                 destination.x = goods.x;
                 destination.y = transform.position.y;
                 Debug.Log("x = " + destination.x + " z = " + destination.z);
@@ -72,7 +72,7 @@ public class movement_in : MonoBehaviour
                 goods.x = (-16.35f + ((int)((int)tmp.x) / 5) * 10.4f + ((int)((int)tmp.x % 5)) * 1.677f);
                 goods.y = (0.1639082f + ((int)(tmp.z - 1)) * (0.6737639f - 0.1639082f));
                 destination.z = goods.z;
-                destination.z += 1;
+                destination.z += (float)(1.5);
                 destination.x = goods.x;
                 destination.y = transform.position.y;
                 Debug.Log("x = " + destination.x + " z = " + destination.z);

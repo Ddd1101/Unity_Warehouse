@@ -423,7 +423,7 @@ public class GeneticAlgorithm
             num2 = random.NextDouble();
             //decide which dimension to crossover
             num3 = random.Next(1, 4);
-
+            Debug.Log(Time.itor + "9----------------------1");
             //crossover
             if (num1 < p_c)
             {
@@ -452,10 +452,9 @@ public class GeneticAlgorithm
                 offspring.y = parent1.y;
                 offspring.z = parent1.z;
             }
-
             //decide which dimension to mutation
             num3 = random.Next(1, 4);
-
+            Debug.Log(Time.itor + "9----------------------2");
             //mutation
             if (num2 < p_m)
             {
@@ -471,20 +470,16 @@ public class GeneticAlgorithm
                 {
                     offspring.z = random.Next(1, 4);
                 }
-                //print(offspring.x + " " + offspring.y + " " + offspring.z);
             }
             offspring.type = 1;
 
-            //print(offspring.x + " " + offspring.y + " " + offspring.z);
             if (Data.position[offspring.x, offspring.y, offspring.z] == 0)
             {
-                //print(offspring.x + " " + offspring.y + " " + offspring.z);
-                //print("==============================================");
                 Data.position[offspring.x, offspring.y, offspring.z] = offspring.type;
                 flag = false;
             }
         }
-
+        Debug.Log(Time.itor + "9----------------------3");
         offspring_list.Enqueue(offspring);
     }
 
@@ -492,7 +487,7 @@ public class GeneticAlgorithm
     public void Exchange()
     {
         population.Sort((x, y) => x.CompareTo(y));
-        for (int i = population.Count - 1; i > num - half_num; i--)
+        for (int i = population.Count - 1; i >= num - half_num - 1; i--)
         {
             Data.position[population[i].x, population[i].y, population[i].z] = 0;
             population.Remove(population[i]);
