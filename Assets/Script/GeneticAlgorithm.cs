@@ -82,7 +82,7 @@ public class GeneticAlgorithm
                 }
             }
         }
-        Debug.Log("initial population  " + population.Count);
+        //Debug.Log("initial population  " + population.Count);
     }
 
     //crossover rate
@@ -423,7 +423,7 @@ public class GeneticAlgorithm
             num2 = random.NextDouble();
             //decide which dimension to crossover
             num3 = random.Next(1, 4);
-            Debug.Log(Time.itor + "9----------------------1");
+            //Debug.Log(Time.itor + "9----------------------1");
             //crossover
             if (num1 < p_c)
             {
@@ -454,7 +454,7 @@ public class GeneticAlgorithm
             }
             //decide which dimension to mutation
             num3 = random.Next(1, 4);
-            Debug.Log(Time.itor + "9----------------------2");
+            //Debug.Log(Time.itor + "9----------------------2");
             //mutation
             if (num2 < p_m)
             {
@@ -479,7 +479,7 @@ public class GeneticAlgorithm
                 flag = false;
             }
         }
-        Debug.Log(Time.itor + "9----------------------3");
+        //Debug.Log(Time.itor + "9----------------------3");
         offspring_list.Enqueue(offspring);
     }
 

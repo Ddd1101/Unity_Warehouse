@@ -14,12 +14,14 @@ public class Time : MonoBehaviour
     GeneticAlgorithm ga;
     ThreadStart child_thread;
     Thread goods_in_thread = null;
+    Thread goods_out_thread = null;
     public bool lock_ = true;
     public int lock__ = 0;
     public static int itor = 0;
     public static UnityEngine.Object o = new UnityEngine.Object();
     int goods_in_ = 0;
     int goods_in_period_ = 0;
+    int goods_out_ = 0;
 
     public void goods_in(int num, int type)
     {
@@ -53,21 +55,37 @@ public class Time : MonoBehaviour
         //Debug.Log("4");
         ga.Out_put();
         //Debug.Log(itor + "after ga" + Data.position_put.Count);
-        goods_in_period_++;
-        if (goods_in_period_ == 1)
+        if (type == 1)
         {
             lock__ = 1;
         }
-        else if (goods_in_period_ == 2)
+        else if (type == 2)
         {
             lock__ = 2;
         }
-        else
+        else if (type == 3)
         {
             lock_ = true;
             Thread.CurrentThread.Abort();
         }
         //Thread.CurrentThread.Abort();
+    }
+
+    public void goods_out(int num, int type)
+    {
+        //Debug.Log("num -- " + num + " type -- " + type);
+        if (type == 1)
+        {
+            Data.A_assignment.Enqueue(num);
+        }
+        if (type == 2)
+        {
+            Data.B_assignment.Enqueue(num);
+        }
+        if (type == 3)
+        {
+            Data.C_assignment.Enqueue(num);
+        }
     }
 
     // Use this for initialization
@@ -86,7 +104,7 @@ public class Time : MonoBehaviour
         duration = (int)((NowTime - start).TotalSeconds);
         millsecond = (int)((NowTime - start).TotalMilliseconds);
         //Debug.Log("duration ========================== " + duration);
-        if (duration % 99999999999 == 0)
+        if (duration % 9999999 == 0)
         {
             if (lock_ == true)
             {
@@ -94,7 +112,11 @@ public class Time : MonoBehaviour
                 lock_ = false;
                 goods_in_thread = new Thread(do_goods_in);
                 goods_in_thread.Start();
+                goods_out_thread = new Thread(do_goods_out);
+                goods_out_thread.Start();
             }
+
+
         }
 
     }
@@ -110,27 +132,24 @@ public class Time : MonoBehaviour
 
     void do_goods_in()
     {
-        goods_in_period_ = 0;
-        Debug.Log("=======================================" + lock__);
         if (lock__ == 0)
         {
-            Debug.Log("==============================1");
+            //Debug.Log("==============================1");
             lock__ = -1;
             goods_in(Data.A_in[(goods_in_) % 12], 1);
         }
         if (lock__ == 1)
         {
-            Debug.Log("==============================2");
+            //Debug.Log("==============================2");
             lock__ = -1;
             goods_in(Data.B_in[(goods_in_) % 12], 2);
         }
         if (lock__ == 2)
         {
-            Debug.Log("==============================3");
+            //Debug.Log("==============================3");
             lock__ = -1;
             goods_in(Data.C_in[(goods_in_++) % 12], 3);
         }
-
     }
 
     void do_goods_in_2()
@@ -160,6 +179,13 @@ public class Time : MonoBehaviour
                 goods_in_thread.Start();
             }
         }
+    }
 
+
+    void do_goods_out()
+    {
+        goods_out(Data.A_out[(goods_out_) % 12], 1);
+        goods_out(Data.B_out[(goods_out_) % 12], 2);
+        goods_out(Data.C_out[(goods_out_++) % 12], 3);
     }
 }

@@ -6,20 +6,19 @@ using System;
 
 public class movement_in : MonoBehaviour
 {
-
-    public Transform TargetObject = null;
-
     private NavMeshAgent agent;
 
     private Vector3 destination;
     private Vector4 tmp;
     private Vector3 goods;
     private Vector3 origin = new Vector3();
+    private Vector4 target = new Vector4();
     int tmp_x;
     int tmp_z;
     int is_stop = 0;
     Vector3 last_position = new Vector3();
     int itor = 0;
+    bool store_flag = false;
 
     // Use this for initialization
     void Start()
@@ -28,7 +27,6 @@ public class movement_in : MonoBehaviour
 
         destination = new Vector3();
 
-        //agent.SetDestination(dest);
         origin.x = transform.position.x;
         origin.z = transform.position.z;
 
@@ -46,12 +44,14 @@ public class movement_in : MonoBehaviour
         if ((tmp.x == -1) && (transform.position.z == origin.z) && (transform.position.x == origin.x) && (Data.position_put.Count > 0))
         {
             //Debug.Log("in");
-            tmp = Data.position_put.Dequeue();
-            Debug.Log("position : x = " + tmp.x + " y = " + tmp.y + " z = " + tmp.z + " / " + Data.position_put.Count);
+            target = Data.position_put.Dequeue();
+            tmp = target;
+            store_flag = true;
+            //Debug.Log("position : x = " + tmp.x + " y = " + tmp.y + " z = " + tmp.z + " / " + Data.position_put.Count);
             goods = new Vector3();
             if (tmp.y % 2 == 1)
             {
-                Debug.Log("single" + (++itor));
+                //Debug.Log("single" + (++itor));
                 tmp.x -= 1;
                 tmp.y = (int)(tmp.y / 2);
                 goods.z = (-3.649f + tmp.y * 3.0f);
@@ -61,11 +61,11 @@ public class movement_in : MonoBehaviour
                 destination.z -= (float)(1.5);
                 destination.x = goods.x;
                 destination.y = transform.position.y;
-                Debug.Log("x = " + destination.x + " z = " + destination.z);
+                //Debug.Log("x = " + destination.x + " z = " + destination.z);
             }
             else
             {
-                Debug.Log("multi" + (++itor));
+                //Debug.Log("multi" + (++itor));
                 tmp.x -= 1;
                 tmp.y = (int)(tmp.y / 2);
                 goods.z = (-3.187f + tmp.y * 3.0f);
@@ -75,21 +75,38 @@ public class movement_in : MonoBehaviour
                 destination.z += (float)(1.5);
                 destination.x = goods.x;
                 destination.y = transform.position.y;
-                Debug.Log("x = " + destination.x + " z = " + destination.z);
+                //Debug.Log("x = " + destination.x + " z = " + destination.z);
             }
             agent.SetDestination(destination);
         }
-        else if (last_position.x == transform.position.x && last_position.z == transform.position.z)
+        else if ((last_position.x != origin.x && last_position.z != origin.z) && (last_position.x == transform.position.x && last_position.z == transform.position.z))
         {
             is_stop += 1;
+            tmp.x = -1;
             //Debug.Log("is_stop =" + is_stop);
-            if (is_stop >= 7)
+            if (is_stop == 6)
+            {
+                Debug.Log("position : x = " + target.x + " y = " + target.y + " z = " + target.z + " / " + Data.position_put.Count);
+                if (target.w == 1)
+                {
+                    Data.A_store.Enqueue(new Vector3(target.x, target.y, target.z));
+                }
+                else if (target.w == 2)
+                {
+                    Data.B_store.Enqueue(new Vector3(target.x, target.y, target.z));
+                }
+                else
+                {
+                    Data.C_store.Enqueue(new Vector3(target.x, target.y, target.z));
+                }
+            }
+
+            if (is_stop >= 12)
             {
                 origin.y = transform.position.y;
                 agent.SetDestination(origin);
                 is_stop = 0;
             }
-            tmp.x = -1;
         }
 
         last_position.x = transform.position.x;
