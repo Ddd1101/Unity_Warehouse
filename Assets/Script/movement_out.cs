@@ -25,6 +25,8 @@ public class movement_out : MonoBehaviour
     int C_outing = 0;
     int out_type = 1;
     int movement_flag = -1;
+
+    GameObject out_object;
     // Use this for initialization
     void Start()
     {
@@ -58,7 +60,8 @@ public class movement_out : MonoBehaviour
                         //出一个A
                         movement_flag = 1;
                         tmp = Data.A_store.Dequeue();
-                        Debug.Log("x = " + tmp.x + " y = " + tmp.y + " z = " + tmp.z);
+                        out_object = Data.A_object_store.Dequeue();
+                        //Debug.Log("x = " + tmp.x + " y = " + tmp.y + " z = " + tmp.z);
                         destination = do_move(tmp);
                         agent.SetDestination(destination);
                         A_outing -= 1;
@@ -93,6 +96,7 @@ public class movement_out : MonoBehaviour
                         //出一个A
                         movement_flag = 1;
                         tmp = Data.B_store.Dequeue();
+                        out_object = Data.B_object_store.Dequeue();
                         Debug.Log("x = " + tmp.x + " y = " + tmp.y + " z = " + tmp.z);
                         destination = do_move(tmp);
                         agent.SetDestination(destination);
@@ -121,13 +125,14 @@ public class movement_out : MonoBehaviour
             }
             if (out_type == 3)
             {
-                if (A_outing != 0)
+                if (C_outing != 0)
                 {
                     if (Data.C_store.Count > 0)
                     {
                         //出一个A
                         movement_flag = 1;
                         tmp = Data.C_store.Dequeue();
+                        out_object = Data.C_object_store.Dequeue();
                         Debug.Log("x = " + tmp.x + " y = " + tmp.y + " z = " + tmp.z);
                         destination = do_move(tmp);
                         agent.SetDestination(destination);
@@ -164,8 +169,9 @@ public class movement_out : MonoBehaviour
             {
                 origin.y = transform.position.y;
                 agent.SetDestination(origin);
-                Debug.Log("reset :x = " + tmp.x + " y = " + tmp.y + " z = " + tmp.z);
-                Data.position[(int)tmp.x, (int)tmp.y, (int)tmp.z] = 0;
+                //Debug.Log("reset :x = " + tmp.x + " y = " + tmp.y + " z = " + tmp.z);
+                //Data.position[(int)tmp.x, (int)tmp.y, (int)tmp.z] = 0;
+                Destroy(out_object);
                 is_stop = 0;
             }
         }
@@ -197,7 +203,7 @@ public class movement_out : MonoBehaviour
             //Debug.Log("multi" + (++itor));
             target_.x -= 1;
             target_.y = (int)(target_.y / 2);
-            goods.z = (-3.187f + target_.y * 3.0f);
+            goods.z = (-2.81f + (int)(target_.y - 1) * 3.0f);
             goods.x = (-16.35f + ((int)((int)target_.x) / 5) * 10.4f + ((int)((int)target_.x % 5)) * 1.677f);
             goods.y = (0.1639082f + ((int)(target_.z - 1)) * (0.6737639f - 0.1639082f));
             rt.z = goods.z;

@@ -20,6 +20,10 @@ public class movement_in : MonoBehaviour
     int itor = 0;
     bool store_flag = false;
 
+    public GameObject type_1;
+    public GameObject type_2;
+    public GameObject type_3;
+
     // Use this for initialization
     void Start()
     {
@@ -38,6 +42,7 @@ public class movement_in : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         //Debug.Log(transform.position.z + " " + origin.z);
         //Debug.Log("movement " + Data.position_put.Count);
         //Debug.Log(agent.isStopped);
@@ -45,6 +50,7 @@ public class movement_in : MonoBehaviour
         {
             //Debug.Log("in");
             target = Data.position_put.Dequeue();
+            Debug.Log("position : x = " + target.x + " y = " + target.y + " z = " + target.z + " / " + Data.position_put.Count);
             tmp = target;
             store_flag = true;
             //Debug.Log("position : x = " + tmp.x + " y = " + tmp.y + " z = " + tmp.z + " / " + Data.position_put.Count);
@@ -54,7 +60,7 @@ public class movement_in : MonoBehaviour
                 //Debug.Log("single" + (++itor));
                 tmp.x -= 1;
                 tmp.y = (int)(tmp.y / 2);
-                goods.z = (-3.649f + tmp.y * 3.0f);
+                goods.z = (-3.3187f + tmp.y * 3.0f);
                 goods.x = (-16.35f + ((int)((int)(tmp.x) / 5)) * 10.4f + ((int)((int)(tmp.x % 5))) * 1.677f);
                 goods.y = (0.1639082f + ((int)(tmp.z - 1)) * (0.6737639f - 0.1639082f));
                 destination.z = goods.z;
@@ -68,7 +74,8 @@ public class movement_in : MonoBehaviour
                 //Debug.Log("multi" + (++itor));
                 tmp.x -= 1;
                 tmp.y = (int)(tmp.y / 2);
-                goods.z = (-3.187f + tmp.y * 3.0f);
+                //Debug.Log(tmp.y);
+                goods.z = (-2.69f + (tmp.y - 1) * 3.0f);
                 goods.x = (-16.35f + ((int)((int)tmp.x) / 5) * 10.4f + ((int)((int)tmp.x % 5)) * 1.677f);
                 goods.y = (0.1639082f + ((int)(tmp.z - 1)) * (0.6737639f - 0.1639082f));
                 destination.z = goods.z;
@@ -86,18 +93,25 @@ public class movement_in : MonoBehaviour
             //Debug.Log("is_stop =" + is_stop);
             if (is_stop == 6)
             {
-                Debug.Log("position : x = " + target.x + " y = " + target.y + " z = " + target.z + " / " + Data.position_put.Count);
+                goods.y += 0.1f;
+                //Debug.Log("position : x = " + target.x + " y = " + target.y + " z = " + target.z + " / " + Data.position_put.Count);
                 if (target.w == 1)
                 {
                     Data.A_store.Enqueue(new Vector3(target.x, target.y, target.z));
+                    GameObject store_object = GameObject.Instantiate(type_1, goods, Quaternion.identity);
+                    Data.A_object_store.Enqueue(store_object);
                 }
                 else if (target.w == 2)
                 {
                     Data.B_store.Enqueue(new Vector3(target.x, target.y, target.z));
+                    GameObject store_object = GameObject.Instantiate(type_2, goods, Quaternion.identity);
+                    Data.B_object_store.Enqueue(store_object);
                 }
                 else
                 {
                     Data.C_store.Enqueue(new Vector3(target.x, target.y, target.z));
+                    GameObject store_object = GameObject.Instantiate(type_2, goods, Quaternion.identity);
+                    Data.C_object_store.Enqueue(store_object);
                 }
             }
 
