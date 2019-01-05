@@ -51,13 +51,13 @@ public class GeneticAlgorithm
         }
         best_result.clear();
 
-        for (int i = 0; i < 16 ;i++)
+        for (int i = 0; i < 16; i++)
         {
             for (int j = 0; j < 13; j++)
             {
                 for (int k = 0; k < 4; k++)
                 {
-                    position[i, j, k] = position[i, j, k];
+                    position[i, j, k] = Data.position[i, j, k];
                 }
             }
         }
@@ -148,7 +148,7 @@ public class GeneticAlgorithm
         float y = 0;
         if (b % 2 == 1)
         {
-            b /= 2;
+            b = b / 2;
             y = (float)b * 3;
         }
         else
@@ -175,7 +175,24 @@ public class GeneticAlgorithm
 
         float z = height[c];
 
-        return (x + y + z);
+        int a2 = 15 - a;
+        float x2 = 0;
+        if (a2 >= 3)
+        {
+            int n = a2 / 5;
+            int m = a2 % 5 - 1;
+            x2 = (m - 2) * 1.77f + n * 10.4f;
+        }
+        else if (a2 == 2)
+        {
+            x2 = 1.77f;
+        }
+        else
+        {
+            x2 = 2f * 1.77f;
+        }
+
+        return (x + y * 2 + x2);
     }
 
     //weight_2:Similar profucts
@@ -184,7 +201,7 @@ public class GeneticAlgorithm
         float centre_x = 0;
         float centre_y = 0;
         float centre_z = 0;
-        int num = 0;
+        int num_ = 0;
 
         for (int i = 1; i < 16; i++)
         {
@@ -197,24 +214,20 @@ public class GeneticAlgorithm
                         centre_x += i;
                         centre_y += j;
                         centre_z += k;
-                        num++;
+                        num_++;
                     }
                 }
             }
         }
-        if (num == 0)
+        if (num_ == 0)
         {
-            Debug.Log("  type =  " + type);
+            return 0;
         }
 
-
-        Debug.Log("  num1 =  " + num);
-        centre_x /= num;
-        Debug.Log("  num2 =  " + num);
-        centre_y /= num;
-        Debug.Log(centre_z);
-        Debug.Log("  num =  " + num);
-        centre_z /= num;
+        //Debug.Log("  num1 =  " + num_);
+        centre_x /= num_;
+        centre_y /= num_;
+        centre_z /= num_;
         //Debug.Log(centre_z);
 
         float decimals = 0;
@@ -270,9 +283,6 @@ public class GeneticAlgorithm
             centre_b = -3.187f + centre_y * 3 + 0.372f;
         }
 
-        //print(centre_z);
-        //Debug.Log("++++++++++++++++++++++++++++_1");
-        //Debug.Log(centre_z);
         centre_c = height[(int)(centre_z)];
         //Debug.Log("++++++++++++++++++++++++++++_2");
 
@@ -335,29 +345,22 @@ public class GeneticAlgorithm
     //Fitness value function 1
     public void Fitness()
     {
-        //Debug.Log("10");
-        //Debug.Log("population count " + population.Count);
-        //int i = 16;
         foreach (var individual in population)
         {
-            //Debug.Log(i);
             float fitness = 0;
-            float w1_fitness = Distance(individual.x, individual.y, individual.z) / 64.4056f;
+            float w1_fitness = Distance(individual.x, individual.y, individual.z) / (58.132f);
             fitness += 0.6f * (1 - w1_fitness);
-            //float w2_fitness = Centre_distance(individual.x, individual.y, individual.z) / 31.5221f;
-            //fitness += 0.2f * (1 - w2_fitness);
+            float w2_fitness = Centre_distance(individual.x, individual.y, individual.z) / 31.5221f;
+            fitness += 0.2f * (1 - w2_fitness);
             float w3_fitness = Core_of_shelf(individual.x, individual.y, individual.z) / 3.0f;
             fitness += 0.2f * (1 - w3_fitness);
             individual.value = fitness;
-            //i++;
         }
-        //Debug.Log("11");
     }
 
     //calulate f_max & f_avg
     public void cal_fmax_favg()
     {
-        //print("cal_fmax_favg");
         f_sum = 0;
         f_max = 0;
         foreach (var individual in population)
@@ -499,14 +502,13 @@ public class GeneticAlgorithm
                     offspring.z = random.Next(1, 4);
                 }
             }
-            offspring.type = 1;
             //Debug.Log(Time.itor + "9----------------------3");
             if (position[offspring.x, offspring.y, offspring.z] == 0)
             {
-                position[offspring.x, offspring.y, offspring.z] = offspring.type;
+                position[offspring.x, offspring.y, offspring.z] = type;
                 flag = false;
             }
-            //Debug.Log(Time.itor + "9----------------------4");
+            //Debug.Log(type + "9----------------------4");
         }
         //Debug.Log(Time.itor + "9----------------------3");
         offspring_list.Enqueue(offspring);
@@ -524,7 +526,6 @@ public class GeneticAlgorithm
             position[population[i].x, population[i].y, population[i].z] = 0;
             population.Remove(population[i]);
         }
-        //Debug.Log(population.Count);
         for (int i = 0; i < half_num; i++)
         {
             population.Add(offspring_list.Dequeue());

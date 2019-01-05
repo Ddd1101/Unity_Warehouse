@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 using System;
 
 public class movement_out : MonoBehaviour
 {
+    public System.Random random = new System.Random();
+    public GameObject target_text;
 
     private NavMeshAgent agent;
 
@@ -25,6 +28,7 @@ public class movement_out : MonoBehaviour
     int C_outing = 0;
     int out_type = 1;
     int movement_flag = -1;
+    int index = 0;
 
     GameObject out_object;
     // Use this for initialization
@@ -59,18 +63,16 @@ public class movement_out : MonoBehaviour
                     {
                         //出一个A
                         movement_flag = 1;
-                        tmp = Data.A_store.Dequeue();
-                        out_object = Data.A_object_store.Dequeue();
+                        //Debug.Log("--" + Data.A_store.Count);
+                        index = (random.Next(0, Data.A_store.Count));
+                        tmp = Data.A_store[index];
+                        out_object = Data.A_object_store[index];
+                        Data.A_object_store.RemoveAt(index);
                         //Debug.Log("x = " + tmp.x + " y = " + tmp.y + " z = " + tmp.z);
+                        target_text.GetComponent<Text>().text = "Out :x = " + tmp.x + " y = " + tmp.y + " z = " + tmp.z;
                         destination = do_move(tmp);
                         agent.SetDestination(destination);
                         A_outing -= 1;
-                        //此时这一批任务出完的话
-                        if (A_outing == 0)
-                        {
-                            //转到出2
-                            out_type = 2;
-                        }
                     }
                     else
                     {
@@ -79,6 +81,7 @@ public class movement_out : MonoBehaviour
                 }
                 else
                 {
+                    out_type = 2;
                     if (Data.A_assignment.Count > 0)
                     {
                         A_outing = Data.A_assignment.Dequeue();
@@ -93,20 +96,21 @@ public class movement_out : MonoBehaviour
                 {
                     if (Data.B_store.Count > 0)
                     {
-                        //出一个A
+                        //出一个B
                         movement_flag = 1;
-                        tmp = Data.B_store.Dequeue();
-                        out_object = Data.B_object_store.Dequeue();
-                        Debug.Log("x = " + tmp.x + " y = " + tmp.y + " z = " + tmp.z);
+                        index = random.Next(0, Data.B_store.Count);
+                        if (Data.B_store.Count == 1)
+                        {
+                            Debug.Log(index);
+                        }
+                        tmp = Data.B_store[index];
+                        out_object = Data.B_object_store[index];
+                        Data.B_object_store.RemoveAt(index);
+                        //Debug.Log("x = " + tmp.x + " y = " + tmp.y + " z = " + tmp.z);
+                        target_text.GetComponent<Text>().text = "Out :x = " + tmp.x + " y = " + tmp.y + " z = " + tmp.z;
                         destination = do_move(tmp);
                         agent.SetDestination(destination);
                         B_outing -= 1;
-                        //此时这一批任务出完的话
-                        if (B_outing == 0)
-                        {
-                            //转到出2
-                            out_type = 3;
-                        }
                     }
                     else
                     {
@@ -115,6 +119,7 @@ public class movement_out : MonoBehaviour
                 }
                 else
                 {
+                    out_type = 3;
                     if (Data.B_assignment.Count > 0)
                     {
                         B_outing = Data.B_assignment.Dequeue();
@@ -129,20 +134,20 @@ public class movement_out : MonoBehaviour
                 {
                     if (Data.C_store.Count > 0)
                     {
-                        //出一个A
+                        //出一个C
                         movement_flag = 1;
-                        tmp = Data.C_store.Dequeue();
-                        out_object = Data.C_object_store.Dequeue();
-                        Debug.Log("x = " + tmp.x + " y = " + tmp.y + " z = " + tmp.z);
+                        index = random.Next(0, Data.C_store.Count);
+                        if (Data.C_store.Count == 1)
+                        {
+                            Debug.Log(index);
+                        }
+                        tmp = Data.C_store[index];
+                        out_object = Data.C_object_store[index];
+                        Data.C_object_store.RemoveAt(index);
+                        //Debug.Log("x = " + tmp.x + " y = " + tmp.y + " z = " + tmp.z);
                         destination = do_move(tmp);
                         agent.SetDestination(destination);
                         C_outing -= 1;
-                        //此时这一批任务出完的话
-                        if (C_outing == 0)
-                        {
-                            //转到出2
-                            out_type = 1;
-                        }
                     }
                     else
                     {
@@ -151,6 +156,7 @@ public class movement_out : MonoBehaviour
                 }
                 else
                 {
+                    out_type = 1;
                     if (Data.C_assignment.Count > 0)
                     {
                         C_outing = Data.C_assignment.Dequeue();
@@ -170,7 +176,19 @@ public class movement_out : MonoBehaviour
                 origin.y = transform.position.y;
                 agent.SetDestination(origin);
                 //Debug.Log("reset :x = " + tmp.x + " y = " + tmp.y + " z = " + tmp.z);
-                //Data.position[(int)tmp.x, (int)tmp.y, (int)tmp.z] = 0;
+                Data.position[(int)tmp.x, (int)tmp.y, (int)tmp.z] = 0;
+                if (out_type == 1)
+                {
+                    Data.A_store.RemoveAt(index);
+                }
+                if (out_type == 2)
+                {
+                    Data.B_store.RemoveAt(index);
+                }
+                if (out_type == 3)
+                {
+                    Data.C_store.RemoveAt(index);
+                }
                 Destroy(out_object);
                 is_stop = 0;
             }

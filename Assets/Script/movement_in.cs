@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using System;
+using UnityEngine.UI;
 
 public class movement_in : MonoBehaviour
 {
+    public GameObject target_text;
+    //public GameObject store_text;
+
     private NavMeshAgent agent;
 
     private Vector3 destination;
@@ -50,11 +53,13 @@ public class movement_in : MonoBehaviour
         {
             //Debug.Log("in");
             target = Data.position_put.Dequeue();
-            Debug.Log("position : x = " + target.x + " y = " + target.y + " z = " + target.z + " / " + Data.position_put.Count);
+            //Debug.Log("position : x = " + target.x + ", y = " + target.y + ", z = " + target.z + " / " + Data.position_put.Count);
+            target_text.GetComponent<Text>().text = "In  :x = " + target.x + " y = " + target.y + " z = " + target.z;
             tmp = target;
             store_flag = true;
             //Debug.Log("position : x = " + tmp.x + " y = " + tmp.y + " z = " + tmp.z + " / " + Data.position_put.Count);
             goods = new Vector3();
+            Data.final_result += (int)(tmp.x + tmp.y + tmp.z);
             if (tmp.y % 2 == 1)
             {
                 //Debug.Log("single" + (++itor));
@@ -97,21 +102,21 @@ public class movement_in : MonoBehaviour
                 //Debug.Log("position : x = " + target.x + " y = " + target.y + " z = " + target.z + " / " + Data.position_put.Count);
                 if (target.w == 1)
                 {
-                    Data.A_store.Enqueue(new Vector3(target.x, target.y, target.z));
+                    Data.A_store.Add(new Vector3(target.x, target.y, target.z));
                     GameObject store_object = GameObject.Instantiate(type_1, goods, Quaternion.identity);
-                    Data.A_object_store.Enqueue(store_object);
+                    Data.A_object_store.Add(store_object);
                 }
                 else if (target.w == 2)
                 {
-                    Data.B_store.Enqueue(new Vector3(target.x, target.y, target.z));
+                    Data.B_store.Add(new Vector3(target.x, target.y, target.z));
                     GameObject store_object = GameObject.Instantiate(type_2, goods, Quaternion.identity);
-                    Data.B_object_store.Enqueue(store_object);
+                    Data.B_object_store.Add(store_object);
                 }
                 else
                 {
-                    Data.C_store.Enqueue(new Vector3(target.x, target.y, target.z));
-                    GameObject store_object = GameObject.Instantiate(type_2, goods, Quaternion.identity);
-                    Data.C_object_store.Enqueue(store_object);
+                    Data.C_store.Add(new Vector3(target.x, target.y, target.z));
+                    GameObject store_object = GameObject.Instantiate(type_3, goods, Quaternion.identity);
+                    Data.C_object_store.Add(store_object);
                 }
             }
 

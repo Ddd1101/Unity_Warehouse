@@ -17,8 +17,6 @@ public class up_view : MonoBehaviour
             camera_1.SetActive(true);
             camera_2.SetActive(false);
             camera_3.SetActive(false);
-            //main_camera.transform.position = new Vector3(-9.46f, 42.05f, 24.97f);
-            //main_camera.transform.rotation = Quaternion.Euler(10f, 0, 0);
         });
     }
 }
